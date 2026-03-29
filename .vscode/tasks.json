@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // Started automatically by the "Debug PhaseHandlerTest" launch config.
+            // Runs Maven with the Surefire debug flag: Maven compiles everything,
+            // then pauses on port 5005 waiting for VS Code's debugger to attach.
+            "label": "Maven: Debug PhaseHandlerTest",
+            "type": "shell",
+            "command": "mvn test -pl forge-game --also-make -Dtest=forge.game.phase.PhaseHandlerTest -Dmaven.surefire.debug=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -Xmx2g\"",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "label": "Maven Debug"
+            },
+            "isBackground": true,
+            // problemMatcher tells VS Code when Maven is ready for the debugger to connect.
+            // It watches the terminal output for the "Listening" line that Maven prints.
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^\\[INFO\\] Building Forge Game",
+                    "endsPattern": "Listening for transport dt_socket at address: 5005"
+                }
+            }
+        }
+    ]
+}

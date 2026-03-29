@@ -1012,6 +1012,11 @@ public class PhaseHandler implements java.io.Serializable {
         }
 
         setPlayerTurn(goesFirst);
+        // Ensure the first player starts their turn 1 with turnsPlayed=1, matching how all subsequent
+        // players receive their increment (via advanceToNextPhase during the prior player's cleanup).
+        // Without this, P1's turnsPlayed is 0-based while everyone else is 1-based, causing
+        // turn-count-gated restrictions (e.g. Serra Avenger) to block P1 one extra turn.
+        goesFirst.incrementTurn();
         advanceToNextPhase();
         onPhaseBegin();
 
